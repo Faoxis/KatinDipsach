@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<history>
+   <processor signature="5.3.1 -mcpu=cortex-m3 -mthumb -g -nostartfiles -Map=Microcontroller.map -O0 --gc-sections -LD:\Programs\CooCox\CoIDE\configuration\ProgramData\Microcontroller -TD:\Programs\CooCox\CoIDE\configuration\ProgramData\Microcontroller/arm-gcc-link.ld -g">
+      <target file="Microcontroller.elf" lastModified="154ddb9ce47">
+         <source file="..\obj\stm32f10x_tim.o" lastModified="154dc52db96"/>
+         <source file="..\obj\startup_stm32f10x_md_vl.o" lastModified="154dc52dc52"/>
+         <source file="..\obj\timer_init.o" lastModified="154ddb9cba5"/>
+         <source file="..\obj\system_stm32f10x.o" lastModified="154dc52dd84"/>
+         <source file="..\obj\usart_init.o" lastModified="154dd8172fa"/>
+         <source file="..\obj\stm32f10x_gpio.o" lastModified="154dc52de6b"/>
+         <source file="..\obj\main.o" lastModified="154ddb7b6a8"/>
+         <source file="..\obj\stm32f10x_rcc.o" lastModified="154dc52df20"/>
+         <source file="..\obj\stm32f10x_usart.o" lastModified="154dc52df93"/>
+         <source file="..\obj\main_init.o" lastModified="154dd81732c"/>
+      </target>
+   </processor>
+</history>

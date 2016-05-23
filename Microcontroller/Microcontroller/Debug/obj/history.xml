@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<history>
+   <processor signature="arm-none-eabi-gcc noversion nomachine -mcpu=cortex-m3 -mthumb -Wall -ffunction-sections -g -O0 -c -DSTM32F100RB -DSTM32F10X_MD_VL -DUSE_STDPERIPH_DRIVER -D__ASSEMBLY__ -I..\..\..\..\..\..\ForMe\MyProjects\Java\KatinDipsach\Microcontroller\stm_lib\inc -I..\..\..\..\..\..\ForMe\MyProjects\Java\KatinDipsach\Microcontroller\user -I..\..\..\..\..\..\ForMe\MyProjects\Java\KatinDipsach\Microcontroller\cmsis_boot -I..\..\..\..\..\..\ForMe\MyProjects\Java\KatinDipsach\Microcontroller\stm_lib -I..\..\..\..\..\..\ForMe\MyProjects\Java\KatinDipsach\Microcontroller\cmsis -I..\..\..\..\..\..\ForMe\MyProjects\Java\KatinDipsach -I..\..\..\..\..\..\ForMe\MyProjects\Java\KatinDipsach\Microcontroller\user\inc -I..\..\..\..\..\..\ForMe\MyProjects\Java\KatinDipsach\Microcontroller">
+      <target file="startup_stm32f10x_md_vl.o" lastModified="154dc52dc52">
+         <source file="..\..\..\cmsis_boot\startup\startup_stm32f10x_md_vl.c" lastModified="154dc331850"/>
+      </target>
+      <target file="main_init.o" lastModified="154dd81732c">
+         <source file="..\..\..\user\src\main_init.c" lastModified="154dd81704b"/>
+      </target>
+      <target file="stm32f10x_tim.o" lastModified="154dc52db96">
+         <source file="..\..\..\stm_lib\src\stm32f10x_tim.c" lastModified="154dc342dd5"/>
+      </target>
+      <target file="timer_init.o" lastModified="154ddb9cba5">
+         <source file="..\..\..\user\src\timer_init.c" lastModified="154ddb9c958"/>
+      </target>
+      <target file="system_stm32f10x.o" lastModified="154dc52dd84">
+         <source file="..\..\..\cmsis_boot\system_stm32f10x.c" lastModified="154dc33185c"/>
+      </target>
+      <target file="main.o" lastModified="154ddb7b6a8">
+         <source file="..\..\..\user\src\main.c" lastModified="154ddb63f36"/>
+      </target>
+      <target file="stm32f10x_gpio.o" lastModified="154dc52de6b">
+         <source file="..\..\..\stm_lib\src\stm32f10x_gpio.c" lastModified="154dc332334"/>
+      </target>
+      <target file="stm32f10x_usart.o" lastModified="154dc52df93">
+         <source file="..\..\..\stm_lib\src\stm32f10x_usart.c" lastModified="154dc33bb5c"/>
+      </target>
+      <target file="stm32f10x_rcc.o" lastModified="154dc52df20">
+         <source file="..\..\..\stm_lib\src\stm32f10x_rcc.c" lastModified="154dc33182b"/>
+      </target>
+      <target file="usart_init.o" lastModified="154dd8172fa">
+         <source file="..\..\..\user\src\usart_init.c" lastModified="154dd817041"/>
+      </target>
+   </processor>
+</history>
