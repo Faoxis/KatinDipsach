@@ -76,7 +76,7 @@ public class MainWindow {
     public void start() {
 
         // Временно задаем com-порт вручную
-        //workingPort = "COM5";
+        //workingPort        = "COM5";
 
 
         JFrame frame = new JFrame("Dipsach_v0.11");

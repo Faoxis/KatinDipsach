@@ -6,7 +6,7 @@ void setInitTimer(void) {
 
 	TIM_TimeBaseInitTypeDef base_timer;
 
-	base_timer.TIM_Prescaler = 24000 - 1;
+	base_timer.TIM_Prescaler = 240 - 1;
 	base_timer.TIM_Period = 1000;
 	TIM_TimeBaseInit(TIM6, &base_timer);
 

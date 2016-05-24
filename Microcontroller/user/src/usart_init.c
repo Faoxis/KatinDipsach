@@ -12,7 +12,7 @@ void setInitUSART(void) {
 
 	// PA10 = RX - usart inputs
 	MyPin.GPIO_Pin = GPIO_Pin_10;
-	MyPin.GPIO_Mode = GPIO_Mode_AF_PP;
+	MyPin.GPIO_Mode = GPIO_Mode_IN_FLOATING;
 	GPIO_Init(GPIOA, &MyPin);
 
 	// PA9 = TX - Настроить на вход
