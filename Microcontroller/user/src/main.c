@@ -38,6 +38,7 @@ void TIM6_DAC_IRQHandler(){
 int main(void) {
 	initAll();
 
+	DIR_TOWARDS();
 
 	while(1) {
 

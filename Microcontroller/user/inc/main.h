@@ -8,6 +8,7 @@
 #include "stm32f10x_tim.h"
 #include "usart_init.h"
 #include "main_init.h"
+#include "config.h"
 #include <stdbool.h>
 
 #endif

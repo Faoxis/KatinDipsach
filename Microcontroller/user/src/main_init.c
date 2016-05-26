@@ -3,7 +3,8 @@
 void initAll(void) {
 	setInitUSART();
 	setInitTimer();
-
+	setInitPWM();
+	setInitDIR();
 
 }
 
