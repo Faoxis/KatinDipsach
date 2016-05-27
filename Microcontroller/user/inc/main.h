@@ -9,6 +9,7 @@
 #include "usart_init.h"
 #include "main_init.h"
 #include "config.h"
+#include "irq.h"
 #include <stdbool.h>
 
 #endif
