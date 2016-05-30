@@ -433,9 +433,9 @@ public class MainWindow {
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
-                portConnection.writeByte((byte) 0xFF);
-                portConnection.writeByte((byte) 0x07);
-                portConnection.writeByte((byte) 0xFF);
+                portConnection.writeByte((byte) 0xF0);
+                portConnection.writeByte((byte) 0x01);
+                portConnection.writeByte((byte) 0xF1);
             } catch (SerialPortException | NullPointerException e1) {
                 labelState.setText("Ошибка! Возможно вы не подключились к устройству!");
                 labelState.repaint();
@@ -447,9 +447,9 @@ public class MainWindow {
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
-                portConnection.writeByte((byte) 0xFF);
-                portConnection.writeByte((byte) 0x09);
-                portConnection.writeByte((byte) 0xFF);
+                portConnection.writeByte((byte) 0xF0);
+                portConnection.writeByte((byte) 0x02);
+                portConnection.writeByte((byte) 0xF1);
             } catch (SerialPortException | NullPointerException e1) {
                 labelState.setText("Ошибка! Возможно вы не подключились к устройству!");
                 labelState.repaint();

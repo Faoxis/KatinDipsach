@@ -1,6 +1,6 @@
 #include "main.h"
 
-
+bool startPlatform = false;
 
 int main(void) {
 	initAll();

@@ -78,3 +78,9 @@ void setInitPWM(void) {
 	    TIM_Cmd(TIM2, ENABLE);
 }
 
+
+
+void setBasicTimer(void) {
+
+}
+
