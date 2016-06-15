@@ -2,7 +2,6 @@
 
 
 void setInitInterrapt() {
-	GPIO_InitTypeDef PORT;
 
 	//Затактируем все три порта
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC , ENABLE);

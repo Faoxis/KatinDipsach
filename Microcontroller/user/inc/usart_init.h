@@ -6,7 +6,7 @@
 #include "stm32f10x_rcc.h"
 
 
-void setInitUSART(void);
-void setUsart(void);
+void initUSARTForCom(void);
+void initUSARTForDevice(void);
 
 #endif

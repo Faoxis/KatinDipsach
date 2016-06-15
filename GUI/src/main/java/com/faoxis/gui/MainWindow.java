@@ -155,47 +155,15 @@ public class MainWindow {
         eastPanel.add(clearButton, layConstraints);
 
 
-        JButton startScanButton = new JButton("Сканировать");
-        startScanButton.addActionListener(new StartScanButtonListener());
-        layConstraints = getGridBagConstraints(3, 0, 2);
-        eastPanel.add(startScanButton, layConstraints);
-
-
-        JButton stopScanButton = new JButton("Остановить сканирование");
-        stopScanButton.addActionListener(new StopScanButtonListener());
-        layConstraints = getGridBagConstraints(4, 0, 2);
-        eastPanel.add(stopScanButton, layConstraints);
-
-
-        JButton startPlatfButton = new JButton("Запуск платформы");
-        startPlatfButton.addActionListener(new StartPlatfButtonListener());
-        layConstraints = getGridBagConstraints(6, 0, 2);
-        eastPanel.add(startPlatfButton, layConstraints);
-
-        JButton stopPlatfButton = new JButton("Остановить платформу");
-        stopPlatfButton.addActionListener(new StopPlatfButtonListener());
-        layConstraints = getGridBagConstraints(7, 0, 2);
-        eastPanel.add(stopPlatfButton, layConstraints);
-
-        JButton startMeasuresButton = new JButton("Запуск измерений");
-        startMeasuresButton.addActionListener(new StartMeasuresButtonListener());
-        layConstraints = getGridBagConstraints(9, 0, 2);
-        eastPanel.add(startMeasuresButton, layConstraints);
-
-        JButton stopMeasuresButton = new JButton("Остановить измерения");
-        stopMeasuresButton.addActionListener(new StopMeasuresButtonLister());
-        layConstraints = getGridBagConstraints(10, 0, 2);
-        eastPanel.add(stopMeasuresButton, layConstraints);
-
-        JButton setAngleButton = new JButton("Выставить угол:");
-        setAngleButton.addActionListener(new SetAngleButtonListener());
-        layConstraints = getGridBagConstraints(12, 0, 1);
-        eastPanel.add(setAngleButton, layConstraints);
-
-        JTextArea angleValueArea = new JTextArea();
-        angleValueArea.setFont(new Font("TimesRoman", Font.BOLD, 24));
-        layConstraints = getGridBagConstraints(12, 1, 1);
-        eastPanel.add(angleValueArea, layConstraints);
+//        JButton setAngleButton = new JButton("Выставить угол:");
+//        setAngleButton.addActionListener(new SetAngleButtonListener());
+//        layConstraints = getGridBagConstraints(12, 0, 1);
+//        eastPanel.add(setAngleButton, layConstraints);
+//
+//        JTextArea angleValueArea = new JTextArea();
+//        angleValueArea.setFont(new Font("TimesRoman", Font.BOLD, 24));
+//        layConstraints = getGridBagConstraints(12, 1, 1);
+//        eastPanel.add(angleValueArea, layConstraints);
         //********************************************************************************************//
 
 
@@ -209,8 +177,10 @@ public class MainWindow {
 
         XYDataset xyDataset = dataset;
 
-        JFreeChart chart = ChartFactory.createXYLineChart(
-                "Карта препятствий", "Угол ", "Дистанция ", xyDataset, PlotOrientation.VERTICAL, true, true, true);
+//        JFreeChart chart = ChartFactory.createXYLineChart(
+//                "Карта препятствий", "Угол ", "Дистанция ", xyDataset, PlotOrientation.VERTICAL, true, true, true);
+
+        JFreeChart chart = ChartFactory.createPolarChart("Карта препятсвий", xyDataset, true, true, true);
 
         chartPanel = new ChartPanel(chart);
         //********************************************************************************************//
@@ -307,6 +277,15 @@ public class MainWindow {
                     this.start();
                     isFirstStart = false;
                 }
+
+                try {
+                    portConnection.writeByte((byte) 228);
+                    portConnection.closePortConnection();
+                    portConnection = new PortConnection(workingPort);
+                } catch (SerialPortException e1) {
+                    e1.printStackTrace();
+                }
+
                 labelState.setText("Программа находится в режиме построения графика.");
                 labelState.repaint();
             } else {
@@ -316,22 +295,20 @@ public class MainWindow {
 
         @Override
         public void run() {
-            long angle = portConnection.getAngle();
+            counter = 0;
+            int distance = 0;
             while (true) {
                 try {
-                    Thread.sleep(1);
-                    if (isStart) {
-                        if (angle != portConnection.getAngle()) {
-                            angle = portConnection.getAngle();
-                            //int fromPort = portConnection.getDataFromChannel1();
-                            channel1.add(angle, portConnection.getDistance());
-                            chartPanel.repaint();
-                        }
+                    Thread.sleep(100);
+                    if (isStart && counter < 210) {
+
+                        channel1.add((int) (counter++ * (180.0/200)), portConnection.getData()/4);
                     }
                 } catch (InterruptedException | NullPointerException e1) {
                     JOptionPane.showMessageDialog(null, ":( Неудача при старте. Возможно стоит проверить соединение.");
                     isStart = false;
                 }
+                
             }
         } // Конец метода run
     } // Конец класса StartButtonListener
@@ -342,6 +319,14 @@ public class MainWindow {
         @Override
         public void actionPerformed(ActionEvent e) {
             isStart = false;
+
+            try {
+                portConnection.writeByte((byte) 228);
+                portConnection.closePortConnection();
+                portConnection = new PortConnection(workingPort);
+            } catch (SerialPortException e1) {
+                e1.printStackTrace();
+            }
 
             if (portConnection == null) {
                 labelState.setText("График не строится. Соединение отсутствует.");
@@ -358,6 +343,7 @@ public class MainWindow {
         public void actionPerformed(ActionEvent event) {
             channel1.clear();
             chartPanel.repaint();
+            counter = 0;
         }
     }
 
@@ -398,90 +384,6 @@ public class MainWindow {
 
             labelState.setText("Список com-портов был успешно обновлен.");
             labelState.repaint();
-        }
-    }
-
-    private class StartScanButtonListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            try {
-                portConnection.writeByte((byte) 0xFF);
-                portConnection.writeByte((byte) 0x03);
-                portConnection.writeByte((byte) 0xFF);
-            } catch (SerialPortException | NullPointerException e1) {
-                labelState.setText("Ошибка! Возможно вы не подключились к устройству!");
-                labelState.repaint();
-            }
-        }
-    }
-
-    private class StopScanButtonListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            try {
-                portConnection.writeByte((byte) 0xFF);
-                portConnection.writeByte((byte) 0x05);
-                portConnection.writeByte((byte) 0xFF);
-            } catch (SerialPortException | NullPointerException e1) {
-                labelState.setText("Ошибка! Возможно вы не подключились к устройству!");
-                labelState.repaint();
-            }
-        }
-    }
-
-    private class StartPlatfButtonListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            try {
-                portConnection.writeByte((byte) 0xF0);
-                portConnection.writeByte((byte) 0x01);
-                portConnection.writeByte((byte) 0xF1);
-            } catch (SerialPortException | NullPointerException e1) {
-                labelState.setText("Ошибка! Возможно вы не подключились к устройству!");
-                labelState.repaint();
-            }
-        }
-    }
-
-    private class StopPlatfButtonListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            try {
-                portConnection.writeByte((byte) 0xF0);
-                portConnection.writeByte((byte) 0x02);
-                portConnection.writeByte((byte) 0xF1);
-            } catch (SerialPortException | NullPointerException e1) {
-                labelState.setText("Ошибка! Возможно вы не подключились к устройству!");
-                labelState.repaint();
-            }
-        }
-    }
-
-    private class StartMeasuresButtonListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            try {
-                portConnection.writeByte((byte) 0xFF);
-                portConnection.writeByte((byte) 0x0B);
-                portConnection.writeByte((byte) 0xFF);
-            } catch (SerialPortException | NullPointerException e1) {
-                labelState.setText("Ошибка! Возможно вы не подключились к устройству!");
-                labelState.repaint();
-            }
-        }
-    }
-
-    private class StopMeasuresButtonLister implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            try {
-                portConnection.writeByte((byte) 0xFF);
-                portConnection.writeByte((byte) 0x0D);
-                portConnection.writeByte((byte) 0xFF);
-            } catch (SerialPortException | NullPointerException e1) {
-                labelState.setText("Ошибка! Возможно вы не подключились к устройству!");
-                labelState.repaint();
-            }
         }
     }
 

@@ -10,7 +10,6 @@ public class PortConnection {
 
     private SerialPort serialPort;
     private int[] dataFromPort = {0, 0};
-    private Coordinate coordinates = new Coordinate();
 
     public void writeByte(byte data) throws SerialPortException {
         serialPort.writeByte((byte) data);
@@ -53,24 +52,15 @@ public class PortConnection {
     } // Конец метода getData()
     //------------------------------------------------------------------------------------------------------------//
 
-    //---------------------------- Обертка для получения информации о дистанции ----------------------------------//
-    public double getDistance() {
-        return coordinates.getDistance();
-    }
-    //------------------------------------------------------------------------------------------------------------//
-
-    //------------------------------ Обертка для получения информации об угле ------------------------------------//
-    public long getAngle() {
-        return coordinates.getAngle();
-    }
-    //------------------------------------------------------------------------------------------------------------//
-
     //---------------------------------------- Закрытие порта ----------------------------------------------------//
     public void closePortConnection() throws SerialPortException {
         serialPort.closePort();
     }
     //------------------------------------------------------------------------------------------------------------//
 
+    public void openPortConnection() throws SerialPortException {
+        serialPort.openPort();
+    }
 
     //---------------------------------- Статический метод с информацией о портах --------------------------------//
     public static String[] getPorts() {
@@ -87,7 +77,6 @@ public class PortConnection {
                 try {
                     //Получаем ответ от устройства, обрабатываем данные и т.д.
                     dataFromPort = serialPort.readIntArray(1);
-                    coordinates.pushValue(dataFromPort[0]);
                 } catch (SerialPortException ex) {
                     System.out.println(ex);
                 }

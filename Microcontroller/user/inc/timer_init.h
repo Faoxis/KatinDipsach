@@ -7,7 +7,7 @@
 #include "stm32f10x_tim.h"
 
 
-void setInitPWM(void);
-void setInitTimer(void);
+void initPWM(void);
+void initTimer(void);
 
 #endif

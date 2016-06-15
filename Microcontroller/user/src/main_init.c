@@ -1,11 +1,14 @@
 #include "main_init.h"
 
 void initAll(void) {
-	setInitUSART();
-	setInitTimer();
-	setInitPWM();
-	setInitDIR();
+	initUSARTForCom();
+	initUSARTForDevice();
 
+	initInterruptPins();
+
+	initPWM();
+	initDIRPins();
+	initTimer();
 }
 
 
@@ -54,7 +57,5 @@ const uint8_t sine[] = {
 60, 62, 63, 65, 67, 69, 71, 73,
 75, 77, 79, 81, 84, 86, 88, 90,
 92, 94, 96, 98, 101, 103, 105, 107,
-109, 111, 114, 116, 118, 120, 123, 125
-
-};
+109, 111, 114, 116, 118, 120, 123, 125};
 
